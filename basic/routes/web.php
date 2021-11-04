@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::get('category/restore/{id}', [CategoryController::class, 'Restore']);
 Route::get('pdelete/category/{id}', [CategoryController::class, 'Pdelete']);
 
 
+//BRAND CONTROLLER
+Route::get('/brand/all', [BrandController::class, 'AllBrand'])->name('all.brand');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
