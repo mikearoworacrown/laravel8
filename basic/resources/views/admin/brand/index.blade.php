@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            All Category
+            All Brand
             <b style="float: right;">
             </b>
         </h2>
@@ -36,17 +36,17 @@
                                         @foreach($brands as $brand)
                                             <tr>
                                             <th scope="row"> {{ $brands->firstItem()+$loop->index }} </th>
-                                            <td> {{ $brands->brand_name }}  </td>
-                                            <td> <img src="" alt=""> </td>
-                                            <td>@if($brands->created_at == NULL)
+                                            <td> {{ $brand->brand_name }}  </td>
+                                            <td> <img src="{{ asset($brand->brand_image) }}" style="height:40px; width:60px;"> </td>
+                                            <td>@if($brand->created_at == NULL)
                                                 <span class="text-danger">No date set</span>
                                                 @else
-                                                {{ $category->created_at->diffForHumans() }} 
+                                                {{ $brand->created_at->diffForHumans() }} 
                                                 @endif
                                             </td>
                                             <td> 
                                                 <a href="{{ url('brand/edit/'.$brand->id) }}" class="btn btn-info">Edit</a>
-                                                <a href="{{ url('brand/delete/'.$brand->id) }}" class="btn btn-danger">Delete</a>
+                                                <a href="{{ url('brand/delete/'.$brand->id) }}" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a>
                                             </td>
                                             </tr>
                                         @endforeach
@@ -60,10 +60,11 @@
                     <div class="card">
                         <div class="card-header">Add Brand</div>
                         <div class="card-body">
-                            <form>
+                            <form action="{{ route('store.brand') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Brand Name</label>
-                                    <input type="email" class="form-control" name="brand_name" aria-describedby="emailHelp">
+                                    <input type="text" class="form-control" name="brand_name" aria-describedby="emailHelp">
                                     @error('brand_name')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

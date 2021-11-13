@@ -6,7 +6,7 @@
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            All Category
+            All Brand
             <b style="float: right;">
             </b>
         </h2>
@@ -41,17 +41,17 @@
                                         <?php $__currentLoopData = $brands; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $brand): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
                                             <th scope="row"> <?php echo e($brands->firstItem()+$loop->index); ?> </th>
-                                            <td> <?php echo e($brands->brand_name); ?>  </td>
-                                            <td> <img src="" alt=""> </td>
-                                            <td><?php if($brands->created_at == NULL): ?>
+                                            <td> <?php echo e($brand->brand_name); ?>  </td>
+                                            <td> <img src="<?php echo e(asset($brand->brand_image)); ?>" style="height:40px; width:60px;"> </td>
+                                            <td><?php if($brand->created_at == NULL): ?>
                                                 <span class="text-danger">No date set</span>
                                                 <?php else: ?>
-                                                <?php echo e($category->created_at->diffForHumans()); ?> 
+                                                <?php echo e($brand->created_at->diffForHumans()); ?> 
                                                 <?php endif; ?>
                                             </td>
                                             <td> 
                                                 <a href="<?php echo e(url('brand/edit/'.$brand->id)); ?>" class="btn btn-info">Edit</a>
-                                                <a href="<?php echo e(url('brand/delete/'.$brand->id)); ?>" class="btn btn-danger">Delete</a>
+                                                <a href="<?php echo e(url('brand/delete/'.$brand->id)); ?>" onclick="return confirm('Are you sure to delete?')" class="btn btn-danger">Delete</a>
                                             </td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -65,10 +65,11 @@
                     <div class="card">
                         <div class="card-header">Add Brand</div>
                         <div class="card-body">
-                            <form>
+                            <form action="<?php echo e(route('store.brand')); ?>" method="POST" enctype="multipart/form-data">
+                            <?php echo csrf_field(); ?>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Brand Name</label>
-                                    <input type="email" class="form-control" name="brand_name" aria-describedby="emailHelp">
+                                    <input type="text" class="form-control" name="brand_name" aria-describedby="emailHelp">
                                     <?php $__errorArgs = ['brand_name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
