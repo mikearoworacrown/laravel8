@@ -17,13 +17,13 @@ use App\Http\Controllers\BrandController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
     $users = User::all();
-    return view('dashboard', compact('users'));
+    return view('admin.index', compact('users'));
 })->name('dashboard');
 
 Route::get('/email/verify', function () {
@@ -54,3 +54,5 @@ Route::get('/multi/image', [BrandController::class, 'Multipic'])->name('multi.im
 Route::post('/multi/add', [BrandController::class, 'StoreImg'])->name('store.image');
 
 
+//Logout
+Route::get('/user/logout', [BrandController::class, 'Logout'])->name('user.logout');
