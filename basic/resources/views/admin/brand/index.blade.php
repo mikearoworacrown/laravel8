@@ -8,12 +8,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-                        @if(session('success'))
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong>{{ session('success') }}</strong>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            </div>
-                        @endif
+                        
 
                         <div class="card-header">All Brand</div>
                         

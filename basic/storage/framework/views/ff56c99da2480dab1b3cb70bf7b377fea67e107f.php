@@ -6,12 +6,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
-                        <?php if(session('success')): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <strong><?php echo e(session('success')); ?></strong>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            </div>
-                        <?php endif; ?>
+                        
 
                         <div class="card-header">All Brand</div>
                         

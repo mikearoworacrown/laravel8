@@ -60,6 +60,13 @@
                 </a>
               </div>
             </div>
+
+            <?php if(session('success')): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><?php echo e(session('success')); ?></strong>
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                </div>
+            <?php endif; ?>
             <div class="card-body p-5">
 
               <h4 class="text-dark mb-5">Sign In</h4>

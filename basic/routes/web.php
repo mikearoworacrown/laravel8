@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChangePass;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +20,8 @@ use App\Http\Controllers\BrandController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    $brands = DB::table('brands')->get();
+    return view('home', compact('brands'));
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -48,11 +52,34 @@ Route::get('/brand/edit/{id}', [BrandController::class, 'Edit']);
 Route::post('/brand/update/{id}', [BrandController::class, 'Update']);
 Route::get('/brand/delete/{id}', [BrandController::class, 'Delete']);
 
+//ADMIN CONTACT PAGE ROUTE
+Route::get('/admin/contact', [ContactController::class, 'AdminContact'])->name('admin.contact');
+Route::get('/admin/contact/add', [ContactController::class, 'AdminAddContact'])->name('add.contact');
+Route::post('/admin/store/contact', [ContactController::class, 'AdminStoreContact'])->name('store.contact');
+Route::get('/admin/message', [ContactController::class, 'AdminMessage'])->name('admin.message');
+
+//Home Contact
+Route::get('/contact', [ContactController::class, 'Contact'])->name('contact');
+Route::post('/contact/form', [ContactController::class, 'ContactForm'])->name('contact.form');
 
 //Multi Image
 Route::get('/multi/image', [BrandController::class, 'Multipic'])->name('multi.image');
 Route::post('/multi/add', [BrandController::class, 'StoreImg'])->name('store.image');
 
+//Admin ALL Route
+Route::get('/home/slider', [HomeController::class, 'HomeSlider'])->name('home.slider');
+Route::get('/add/slider', [HomeController::class, 'AddSlider'])->name('add.slider');
+Route::post('/store/slider', [HomeController::class, 'StoreSlider'])->name('store.slider');
 
 //Logout
 Route::get('/user/logout', [BrandController::class, 'Logout'])->name('user.logout');
+
+//Change Password and user profile route
+Route::get('/user/password', [ChangePass::class, 'CPassword'])->name('change.password');
+Route::post('/password/update', [ChangePass::class, 'UpdatePassword'])->name('password.update');
+
+
+//User Profile
+Route::get('/user/profile', [ChangePass::class, 'PUpdate'])->name('profile.update');
+Route::get('/user/profile/update', [ChangePass::class, 'UpdateProfile'])->name('update.user.profile');
+
